@@ -1,0 +1,34 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  install:
+    desc: 'Installs everything needed to start the project'
+    cmds:
+      - cd frontend && npm install
+      - cd scanners && ./build-docker-base.sh
+  run:
+    desc: 'Runs the project'
+    cmds:
+      - docker compose up --force-recreate --build --remove-orphans -d
+      - cd frontend && npm run dev
+  stop:
+    desc: "Stop the project"
+    cmds:
+      - docker compose stop
+      - |
+        cd frontend
+        PORT=$(node -e "console.log(Number(process.env.PORT) || 6006)")
+        lsof -ti:$PORT | xargs -r kill -TERM || true
+  test:
+    desc: "Run all tests"
+    cmds:
+      - cmd: |
+          if docker compose ps -q | grep -q .; then
+            echo "Containers already running → skipping compose up"
+          else
+            echo "No containers running → starting them"
+            docker compose up --force-recreate --build --remove-orphans -d
+          fi
+      - uv run pytest

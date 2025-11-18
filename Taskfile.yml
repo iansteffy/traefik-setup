@@ -2,18 +2,24 @@
 
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-
-# No matter what project you are in,
-#  common commands from setup and running will be the same!
-
 tasks:
   install:
-    desc: 'Installs all dependencies needed for your project to run'
+    desc: 'Installs everything needed to start the project'
     cmds:
-      - echo "Your commands here!"
+      - echo "your commands go here!"
   run:
     desc: 'Runs the project'
     cmds:
-      - echo "Your commands here!"
+      - echo "your commands go here!"
+  update:
+    desc: 'Updates docker containers, packages, etc.'
+    cmds:
+      - echo "your commands go here!"
+  stop:
+    desc: "Stop the project"
+    cmds:
+      - echo "your commands go here!"
+  test:
+    desc: "Run all tests"
+    cmds:
+      - echo "your commands go here!"
