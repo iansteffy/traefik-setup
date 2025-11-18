@@ -1,8 +1,8 @@
 # Local traefik setup
 
-![docker.png](docker.png)
-![traefik.png](traefik.png)
-![dnsmasq.png](dnsmasq.png)
+![docker.png](assets/docker.png)
+![traefik.png](assets/traefik.png)
+![dnsmasq.png](assets/dnsmasq.png)
 
 ## Table of Contents
 
@@ -260,4 +260,4 @@ networks:
 docker compose up
 ```
 
-![example.png](example.png)
+![example.png](assets/example.png)
