@@ -1,0 +1,19 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+# No matter what project you are in,
+#  common commands from setup and running will be the same!
+
+tasks:
+  install:
+    desc: 'Installs all dependencies needed for your project to run'
+    cmds:
+      - echo "Your commands here!"
+  run:
+    desc: 'Runs the project'
+    cmds:
+      - echo "Your commands here!"

@@ -14,7 +14,7 @@
     2. [dnsmasq](#dnsmasq)
     3. [resolver](#resolver)
     4. [Traefik](#traefik)
-5. [Useful cli commands](#useful-cli-commands)
+5. [Useful unified commands](#useful-unified-commands)
     1. [Show traefik logs](#show-traefik-logs)
     2. [Show dnsmasq logs](#show-dnsmasq-logs)
     3. [Restart Traefik](#restart-traefik)
@@ -183,7 +183,55 @@ cd ~/work/traefik && docker compose up -d
 Unfortunately, I don't have a ready-made script for quick deployment here. Create a `compose.yaml` with the above
 content and start it in the background.
 
-## Useful cli commands
+## Useful unified commands
+
+The goal for this is that all projects use the same set of commands to run, build, install, etc. For example, `task install`
+
+Every project in our company has its own way to set up, run the project, etc., but the way we install and run projects is always different per project.
+What if any new users in any given project in Secphoria already new the main commands needed to setup and start that project
+
+[Taskfile.dev](https://taskfile.dev/) aims to give us this by allowing us to use the same commands for EVERY project. 
+
+### Quick Install Taskfile and init in project
+Detailed and/or alternative ways to install Taskfile can be found [here](https://taskfile.dev/docs/installation). Below is a quick-start up guide.
+
+1. Assuming you have `brew` installed,
+```bash
+brew install go-task
+```
+2. If you dont yet have a Taskfile and want to generate one,
+go into your root directory for your repo and
+```bash
+task --init
+```
+### Easy Taskfile use example
+
+Below is an example of a Taskfile with explanations
+
+```yml
+version: '3'
+
+vars:
+  INSTALL: Installs all (fe) dependencies needed for your project to run
+
+tasks:
+  install: # name of the task
+    desc: {{.INSTALL}}
+    cmds:
+      # For every new command after '-', we start back at the root directory.
+      #   To continue using the same path, please chain commands together with &&, 
+      #   otherwise you will need to rewrite the path in the new '-'
+      - cd frontend && npm install
+      - cd integration-tests/api-tests && uv venv source .venv/bin/activate
+  run:
+    desc: 'Runs the project'
+    cmds:
+      - docker compose up postgres frontend backend --force-recreate --build --remove-orphans
+```
+To call any of these tasks, you go to the location of Taskfile and write `task {{command-name}}`. 
+In our example, this can be either `task install` or `task run`.
+
+If you would like to see all tasks write `task --list`.
 
 ### Show traefik logs
 
