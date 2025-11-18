@@ -187,6 +187,9 @@ content and start it in the background.
 
 The goal for this is that all projects use the same set of commands to run, build, install, etc. For example, `task install`
 
+Sure we have `npm` for commands, but some projects may uses `pnpm` and others `deno`. 
+With Taskfile, we dont need to worry about any of that affecting our core commands
+
 Every project in our company has its own way to set up, run the project, etc., but the way we install and run projects is always different per project.
 What if any new users in any given project in Secphoria already new the main commands needed to setup and start that project
 
