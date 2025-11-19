@@ -68,3 +68,7 @@ tasks:
     cmds:
       - cd frontend && npm run lint
       - docker compose exec backend flake8 . || echo "No backend linting configured"
+  npm:
+    desc: "Execute npm commands in Docker container"
+    cmds:
+      - docker exec -it -w /app/frontend cerberus-store-frontend-1 npm {{.CLI_ARGS}}
