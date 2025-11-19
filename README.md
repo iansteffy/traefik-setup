@@ -1,12 +1,16 @@
 # Local traefik setup
 
-![docker.png](assets/docker.png){height=300px}
-![traefik.png](assets/traefik.png){height=300px}
-![dnsmasq.png](assets/dnsmasq.png){height=300px}
+This README will teach you how to use the following technologies in our projects
+
+<div style="display: flex; gap: 10px; align-items: center;">
+    <img src="assets/docker.png" alt="docker" height="200" />
+    <img src="assets/traefik.png" alt="traefik" height="200" />
+    <img src="assets/dnsmasq.png" alt="dnsmasq" height="200" />
+</div>
 
 # Taskfile setup
 
-![taskfile.png](assets/taskfile.png)
+<img src="assets/taskfile.png" alt="taskfile" height="400" />
 
 We have a dedicated Taskfile Setup guide at [TaskfileREADME.md](./TaskfileREADME.md)
 
