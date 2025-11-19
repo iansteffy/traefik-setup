@@ -3,12 +3,16 @@
 
 <img src="assets/taskfile.png" alt="taskfile" height="400" />
 
-[Taskfile.dev](https://taskfile.dev/) aims to give us this by allowing us to use the same commands for EVERY project.
+[Taskfile.dev](https://taskfile.dev/) aims to give us development unity by allowing everyone in the companies to use the same commands for EVERY project.
 
-All projects amongst our companies can now use the same set of commands to run, build, install, etc. For example, `task install`
+The goal is that all projects amongst our companies can now use the same set of commands to run, build, install, etc. For example, `task install`
+
+### Why cant i just continuing my one-line npm commands?
 
 We have `npm` for commands, but some projects may uses `pnpm` and others `deno`. On top of that, docker will have to be run. 
 Unify all of this in one command, that is the same across all projects in our companies.
+
+With Taskfile, no one needs to care about knowing specific install steps for a project. Every project installs dependencies in the same way!
 
 ### Quick Setup for Taskfile in your Project
 
