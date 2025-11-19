@@ -1,8 +1,8 @@
 # Local traefik setup
 
-![docker.png](assets/docker.png)
-![traefik.png](assets/traefik.png)
-![dnsmasq.png](assets/dnsmasq.png)
+![docker.png](assets/docker.png){height=300px}
+![traefik.png](assets/traefik.png){height=300px}
+![dnsmasq.png](assets/dnsmasq.png){height=300px}
 
 # Taskfile setup
 

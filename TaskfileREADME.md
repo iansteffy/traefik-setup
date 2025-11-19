@@ -1,6 +1,8 @@
 
 # Taskfile - The Universal Command Center
 
+![taskfile.png](assets/taskfile.png)
+
 [Taskfile.dev](https://taskfile.dev/) aims to give us this by allowing us to use the same commands for EVERY project.
 
 All projects amongst our companies can now use the same set of commands to run, build, install, etc. For example, `task install`
