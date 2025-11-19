@@ -1,7 +1,7 @@
 
 # Taskfile - The Universal Command Center
 
-![taskfile.png](assets/taskfile.png)
+<img src="assets/taskfile.png" alt="taskfile" height="400" />
 
 [Taskfile.dev](https://taskfile.dev/) aims to give us this by allowing us to use the same commands for EVERY project.
 
