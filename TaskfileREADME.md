@@ -89,62 +89,39 @@ configuration options,
 `task update` will use the necessary tools to make sure the project is up to date. This means for
 example running database migrations.
 
-#### run
+### run
 
 Starts the local development server, most of the time we will use something like http://localhost:8000/ for
 this. The development server may be started inside a docker container using docker-compose.
 
-#### stop
+### stop
 
 Stops the development server.
 
-### Other Core Tasks
+## Other Core Tasks
 
 Should mostly be in all Taskfiles
 
-#### clean
+### clean
 
-The clean task will remove any files installed by b5. This includes for example the node_modules-directory
+The clean task will remove any files installed by Taskfile. This includes for example the node_modules-directory
 introduced by `npm install`.
-
-#### deploy
-
-Takes at least one parameter: Server to deploy to (example: `task deploy staging`)
-
-Will deploy all the changes from the local repository to the server.
-
-#### deploy:install
-
-Like `deploy` but will only setup the project on the server. It will not try to run tasks for
-updating the project as these will fail (example: running database migrations without having configured
-the database connection is a bad idea).
 
 ### Optional Tasks
 
 The following tasks may exist, but are not as standardised as the tasks above:
 
-#### test
+### test
 
 Will exeecute the test suite.
 
-#### lint
+### lint
 
 Will execute the linter and give you details if anything does not follow the coding guidelines.
 
-#### css
+### npm 
 
-This task will build the CSS files necessary for your project. It will build these files once and then
-exit. May use Sass or less for doing so.
-
-#### js
-
-The js task will build any Javascript files inside your project. This may use Typescript or just webpack to
-combine multiple files. It will exit after doing so.
-
-#### watch
-
-The watch task will build CSS and Javascript files on every change. It will stay alive until canceled
-using Ctrl+C. No other jobs are started, so for example no browsersync will be launched.
+Execute npm commands in docker container from your root folder
 
 
 
