@@ -3,12 +3,16 @@
 
 <img src="assets/taskfile.png" alt="taskfile" height="400" />
 
-[Taskfile.dev](https://taskfile.dev/) aims to give us this by allowing us to use the same commands for EVERY project.
+[Taskfile.dev](https://taskfile.dev/) aims to give us development unity by allowing everyone in the companies to use the same commands for EVERY project.
 
-All projects amongst our companies can now use the same set of commands to run, build, install, etc. For example, `task install`
+The goal is that all projects amongst our companies can now use the same set of commands to run, build, install, etc. For example, `task install`
+
+### Why cant i just continuing my one-line npm commands?
 
 We have `npm` for commands, but some projects may uses `pnpm` and others `deno`. On top of that, docker will have to be run. 
 Unify all of this in one command, that is the same across all projects in our companies.
+
+With Taskfile, no one needs to care about knowing specific install steps for a project. Every project installs dependencies in the same way!
 
 ### Quick Setup for Taskfile in your Project
 
@@ -38,7 +42,7 @@ The `Taskfile.yml`, on the otherhand, is a template for you to use in your proje
 version: '3'
 
 vars:
-  INSTALL: Installs all dependencies needed for your project to run
+  INSTALL: Installs all dependencies needed for your project to run - example
 
 tasks:
   install: # name of the task
@@ -50,9 +54,9 @@ tasks:
       - cd frontend && npm install
       - cd backend && {install command}
   run:
-    desc: 'Runs the project'
+    desc: 'Runs the project - example'
     cmds:
-       - docker compose up --force-recreate --build --remove-orphans -d
+       - docker compose up postgres backend --force-recreate --build --remove-orphans -d
        - cd frontend && npm run dev
 ```
 To call any of these tasks, you go to the location of Taskfile and write `task {{command-name}}`.
@@ -60,9 +64,8 @@ In our example, this can be either `task install` or `task run`.
 
 If you would like to see all tasks write `task --list`.
 
-## Universal Taskfile commands that everyone needs
 
-### Mandatory Tasks
+## Mandatory Tasks
 The following tasks must be available in **every** project:
 
 * install
@@ -72,12 +75,12 @@ The following tasks must be available in **every** project:
 
 If no installation is necessary the tasks should simply do nothing, but still will be available.
 
-#### install
+### install
 
 The install task will setup the project for you. It will install dependencies (npm, virtualenv, …), and
 make sure an initial config exists.
 
-#### update
+### update
 
 When working on a project you may at some time introduce changes that might break the installation
 of the project for your colleges. This might include changing the database schema, add additional
@@ -86,62 +89,39 @@ configuration options,
 `task update` will use the necessary tools to make sure the project is up to date. This means for
 example running database migrations.
 
-#### run
+### run
 
 Starts the local development server, most of the time we will use something like http://localhost:8000/ for
 this. The development server may be started inside a docker container using docker-compose.
 
-#### stop
+### stop
 
 Stops the development server.
 
-### Other Core Tasks
+## Other Core Tasks
 
 Should mostly be in all Taskfiles
 
-#### clean
+### clean
 
-The clean task will remove any files installed by b5. This includes for example the node_modules-directory
+The clean task will remove any files installed by Taskfile. This includes for example the node_modules-directory
 introduced by `npm install`.
-
-#### deploy
-
-Takes at least one parameter: Server to deploy to (example: `task deploy staging`)
-
-Will deploy all the changes from the local repository to the server.
-
-#### deploy:install
-
-Like `deploy` but will only setup the project on the server. It will not try to run tasks for
-updating the project as these will fail (example: running database migrations without having configured
-the database connection is a bad idea).
 
 ### Optional Tasks
 
 The following tasks may exist, but are not as standardised as the tasks above:
 
-#### test
+### test
 
 Will exeecute the test suite.
 
-#### lint
+### lint
 
 Will execute the linter and give you details if anything does not follow the coding guidelines.
 
-#### css
+### npm 
 
-This task will build the CSS files necessary for your project. It will build these files once and then
-exit. May use Sass or less for doing so.
-
-#### js
-
-The js task will build any Javascript files inside your project. This may use Typescript or just webpack to
-combine multiple files. It will exit after doing so.
-
-#### watch
-
-The watch task will build CSS and Javascript files on every change. It will stay alive until canceled
-using Ctrl+C. No other jobs are started, so for example no browsersync will be launched.
+Execute npm commands in docker container from your root folder
 
 
 
