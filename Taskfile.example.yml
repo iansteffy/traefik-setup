@@ -43,31 +43,7 @@ tasks:
         cd frontend
         PORT=$(node -e "console.log(Number(process.env.PORT) || 6006)")
         lsof -ti:$PORT | xargs -r kill -TERM || true
-
-  deploy:
-    desc: "Deploy to specified server (usage: `task deploy -- staging`)"
-    cmds:
-      - |
-        if [ -z "{{.CLI_ARGS}}" ]; then
-          echo "Please specify target server: task deploy -- staging|production"
-          exit 1
-        fi
-        echo "Deploying to {{.CLI_ARGS}}..."
-        # Add deployment commands here
-        echo "Deployment to {{.CLI_ARGS}} completed!"
-
-  deploy:install:
-    desc: "Setup project on server without running updates"
-    cmds:
-      - |
-        if [ -z "{{.CLI_ARGS}}" ]; then
-          echo "Please specify target server: task deploy:install -- staging|production"
-          exit 1
-        fi
-        echo "Installing project setup on {{.CLI_ARGS}}..."
-        # Add installation commands here
-        echo "Installation on {{.CLI_ARGS}} completed!"
-
+        
   test:
     desc: "Run all tests"
     cmds:
@@ -92,18 +68,3 @@ tasks:
     cmds:
       - cd frontend && npm run lint
       - docker compose exec backend flake8 . || echo "No backend linting configured"
-
-  css:
-    desc: "Build CSS files (Sass/Less compilation)"
-    cmds:
-      - cd frontend && npm run build:css
-
-  js:
-    desc: "Build JavaScript files (TypeScript/webpack compilation)"
-    cmds:
-      - cd frontend && npm run build:js
-
-  watch:
-    desc: "Build CSS and Javascript files on every change"
-    cmds:
-      - cd frontend && npm run watch
