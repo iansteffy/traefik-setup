@@ -2,25 +2,72 @@
 
 version: '3'
 
+vars:
+  INSTALL: > 
+    The install task will install dependencies (npm, virtualenv, …), and make sure an initial config exists.
+  UPDATE: > 
+    Will use the necessary tools to make sure the project is up to date. 
+    This means for example running database migrations..
+  RUN: >
+    Starts the local development server, most of the time we will use something like http://localhost:8000/ for this. 
+    The development server may be started inside a docker container using docker-compose.
+  STOP: >
+    Stops the project (`npm run` commands, detached running docker containers, etc.)
+
 tasks:
   install:
-    desc: 'Installs everything needed to start the project'
+    desc: '{{.INSTALL}}'
     cmds:
       - cd frontend && npm install
       - cd scanners && ./build-docker-base.sh
+      
+  update:
+    desc: '{{.UPDATE}}'
+    cmds:
+      - docker compose pull
+      - cd frontend && npm update
+      - echo "Running database migrations if needed..."
+      - docker compose exec backend python manage.py migrate || echo "No backend migrations to run"
+
   run:
-    desc: 'Runs the project'
+    desc: '{{.RUN}}'
     cmds:
       - docker compose up --force-recreate --build --remove-orphans -d
       - cd frontend && npm run dev
+
   stop:
-    desc: "Stop the project"
+    desc: "{{.STOP}}"
     cmds:
       - docker compose stop
       - |
         cd frontend
         PORT=$(node -e "console.log(Number(process.env.PORT) || 6006)")
         lsof -ti:$PORT | xargs -r kill -TERM || true
+
+  deploy:
+    desc: "Deploy to specified server (usage: `task deploy -- staging`)"
+    cmds:
+      - |
+        if [ -z "{{.CLI_ARGS}}" ]; then
+          echo "Please specify target server: task deploy -- staging|production"
+          exit 1
+        fi
+        echo "Deploying to {{.CLI_ARGS}}..."
+        # Add deployment commands here
+        echo "Deployment to {{.CLI_ARGS}} completed!"
+
+  deploy:install:
+    desc: "Setup project on server without running updates"
+    cmds:
+      - |
+        if [ -z "{{.CLI_ARGS}}" ]; then
+          echo "Please specify target server: task deploy:install -- staging|production"
+          exit 1
+        fi
+        echo "Installing project setup on {{.CLI_ARGS}}..."
+        # Add installation commands here
+        echo "Installation on {{.CLI_ARGS}} completed!"
+
   test:
     desc: "Run all tests"
     cmds:
@@ -32,3 +79,31 @@ tasks:
             docker compose up --force-recreate --build --remove-orphans -d
           fi
       - uv run pytest
+
+  clean:
+    desc: "Remove any files installed by the project setup"
+    cmds:
+      - cd frontend && rm -rf node_modules
+      - docker compose down --volumes --remove-orphans
+      - docker system prune -f
+
+  lint:
+    desc: "Execute the linter and check coding guidelines"
+    cmds:
+      - cd frontend && npm run lint
+      - docker compose exec backend flake8 . || echo "No backend linting configured"
+
+  css:
+    desc: "Build CSS files (Sass/Less compilation)"
+    cmds:
+      - cd frontend && npm run build:css
+
+  js:
+    desc: "Build JavaScript files (TypeScript/webpack compilation)"
+    cmds:
+      - cd frontend && npm run build:js
+
+  watch:
+    desc: "Build CSS and Javascript files on every change"
+    cmds:
+      - cd frontend && npm run watch

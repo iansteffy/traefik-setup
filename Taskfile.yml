@@ -2,24 +2,35 @@
 
 version: '3'
 
+vars:
+  INSTALL: >
+    The install task will install dependencies (npm, virtualenv, …), and make sure an initial config exists.
+  UPDATE: >
+    Will use the necessary tools to make sure the project is up to date. 
+    This means for example running database migrations..
+  RUN: >
+    Starts the local development server, most of the time we will use something like http://localhost:8000/ for this. 
+    The development server may be started inside a docker container using docker-compose.
+  STOP: >
+    Stops the project (`npm run` commands, detached running docker containers, etc.)
+
 tasks:
   install:
-    desc: 'Installs everything needed to start the project'
+    desc: '{{.INSTALL}}'
     cmds:
-      - echo "your commands go here!"
-  run:
-    desc: 'Runs the project'
-    cmds:
-      - echo "your commands go here!"
+      - {Your commands here!}
+
   update:
-    desc: 'Updates docker containers, packages, etc.'
+    desc: '{{.UPDATE}}'
     cmds:
-      - echo "your commands go here!"
+      - {Your commands here!}
+
+  run:
+    desc: '{{.RUN}}'
+    cmds:
+      - {Your commands here!}
+
   stop:
-    desc: "Stop the project"
+    desc: "{{.STOP}}"
     cmds:
-      - echo "your commands go here!"
-  test:
-    desc: "Run all tests"
-    cmds:
-      - echo "your commands go here!"
+      - {Your commands here!}
