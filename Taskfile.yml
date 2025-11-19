@@ -18,19 +18,19 @@ tasks:
   install:
     desc: '{{.INSTALL}}'
     cmds:
-      - {Your commands here!}
+      - echo "Enter custom install commands here"
 
   update:
     desc: '{{.UPDATE}}'
     cmds:
-      - {Your commands here!}
+      - echo "Enter custom update commands here"
 
   run:
     desc: '{{.RUN}}'
     cmds:
-      - {Your commands here!}
+      - echo "Enter custom run commands here"
 
   stop:
     desc: "{{.STOP}}"
     cmds:
-      - {Your commands here!}
+      - echo "Enter custom stop commands here"

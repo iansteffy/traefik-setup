@@ -67,6 +67,8 @@ The following tasks must be available in **every** project:
 
 * install
 * update
+* run
+* stop
 
 If no installation is necessary the tasks should simply do nothing, but still will be available.
 
@@ -84,10 +86,6 @@ configuration options,
 `task update` will use the necessary tools to make sure the project is up to date. This means for
 example running database migrations.
 
-### Other Core Tasks
-
-Should mostly be in all Taskfiles
-
 #### run
 
 Starts the local development server, most of the time we will use something like http://localhost:8000/ for
@@ -96,6 +94,10 @@ this. The development server may be started inside a docker container using dock
 #### stop
 
 Stops the development server.
+
+### Other Core Tasks
+
+Should mostly be in all Taskfiles
 
 #### clean
 
