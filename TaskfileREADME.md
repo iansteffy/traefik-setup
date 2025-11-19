@@ -60,9 +60,8 @@ In our example, this can be either `task install` or `task run`.
 
 If you would like to see all tasks write `task --list`.
 
-## Universal Taskfile commands that everyone needs
 
-### Mandatory Tasks
+## Mandatory Tasks
 The following tasks must be available in **every** project:
 
 * install
@@ -72,12 +71,12 @@ The following tasks must be available in **every** project:
 
 If no installation is necessary the tasks should simply do nothing, but still will be available.
 
-#### install
+### install
 
 The install task will setup the project for you. It will install dependencies (npm, virtualenv, …), and
 make sure an initial config exists.
 
-#### update
+### update
 
 When working on a project you may at some time introduce changes that might break the installation
 of the project for your colleges. This might include changing the database schema, add additional
