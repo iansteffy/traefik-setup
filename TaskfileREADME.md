@@ -38,7 +38,7 @@ The `Taskfile.yml`, on the otherhand, is a template for you to use in your proje
 version: '3'
 
 vars:
-  INSTALL: Installs all dependencies needed for your project to run
+  INSTALL: Installs all dependencies needed for your project to run - example
 
 tasks:
   install: # name of the task
@@ -50,9 +50,9 @@ tasks:
       - cd frontend && npm install
       - cd backend && {install command}
   run:
-    desc: 'Runs the project'
+    desc: 'Runs the project - example'
     cmds:
-       - docker compose up --force-recreate --build --remove-orphans -d
+       - docker compose up postgres backend --force-recreate --build --remove-orphans -d
        - cd frontend && npm run dev
 ```
 To call any of these tasks, you go to the location of Taskfile and write `task {{command-name}}`.
